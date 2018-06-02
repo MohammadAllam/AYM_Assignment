@@ -19,6 +19,7 @@ This application is following the MVVM architecture and uses reactive techniques
 
 ### To do 
   - Fixing the four warnings currently presented in the storyboard.
+  - Filtering the weather forcast to display only one forcast per day instead of the hourly forcast currently presented.
   - Displaying a more user friendly error messages.
   - Adding refresh functionality.
   - Allowing the user to change the location manually for a better experience.
