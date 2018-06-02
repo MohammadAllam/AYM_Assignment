@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Item 2-->
+        <scene sceneID="g3h-LG-Z6C">
+            <objects>
+                <viewController id="h41-iH-eTR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3qm-h7-eAx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Y8a-F0-cBm"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="tg4-ct-8BZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4HN-nz-DJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="858" y="579"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="3wz-ca-tNn">
+            <objects>
+                <viewController id="G38-At-LUN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B11-pj-kmu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="SQN-3t-Mb3"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="KOk-rT-ZxW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KQ5-tO-Kuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="858" y="-86"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="rJG-CT-ZGg">
+            <objects>
+                <tabBarController id="8jN-g7-EJy" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qQE-As-n2j">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="G38-At-LUN" kind="relationship" relationship="viewControllers" id="Gx7-xH-vMK"/>
+                        <segue destination="h41-iH-eTR" kind="relationship" relationship="viewControllers" id="aco-oP-eu1"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RWp-Kj-KJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-93" y="245"/>
+        </scene>
+    </scenes>
+</document>
