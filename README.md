@@ -1,7 +1,5 @@
 # AYM_Assignment
 
-
-# General
 This is a tabbed app consists of two screens:
   - Restaurants : Listing top restaurants near the device according to their prominence rating.
   - Weather : Displaying today's weather stats and a detailed forcast for the upcoming five days.
