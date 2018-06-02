@@ -39,6 +39,7 @@ RestaurantViewModelOutput{
     // MARK: Input
     func refresh() {
         refreshFlag = true
+        locationMan.requestLocation()
     }
 
     // MARK: Output
@@ -51,38 +52,57 @@ RestaurantViewModelOutput{
 
     // MARK: Private
     private let service: RestaurantServiceType
+    private let locationMan: LocationManagerType
     private var refreshFlag = true
     private let restaurantsProperty = Variable<[Restaurant]>([])
     private let errorStringProperty = Variable<String>("")
 
     // MARK: Init
     init(inputService: RestaurantServiceType = RestaurantService(),
+         inputLocManager: LocationManagerType = LocationManager.sharedInstance,
          disposeBag:DisposeBag) {
 
         self.service = inputService
+        self.locationMan = inputLocManager
 
-        self.service.nearByRestaurants(longitude: "25.077598",
-                                       latitude: "55.147028")
-            .subscribe(onNext: { [unowned self] requestResult in
-
-                switch requestResult{
-                case let .success(results):
-                    self.restaurantsProperty.value = results
-                case let .error(error):
-                    switch error{
-                    case .OverQueryLimit:
-                        self.errorStringProperty.value = "Maximum number of queries limit has been reached..!"
-                    case .InvalidRequest:
-                        self.errorStringProperty.value = "Invalid request parameters..!"
-                    case .RequestDenied:
-                        self.errorStringProperty.value = "Request has been denied..!"
-                    case .ServerSideError:
-                        self.errorStringProperty.value = "Server side error..!"
-                    case let .error(withMessage: message):
-                        self.errorStringProperty.value = "Received error:\(message)"
+        locationMan.currentLocation
+            .subscribe(onNext: { [unowned self] currentLocationDic in
+                if self.refreshFlag{
+                    self.refreshFlag = false
+                    guard let longValue = currentLocationDic[LocationManagerConstants.KEY_LONITUDE] else{
+                        return
                     }
-                    print("err.loca")
+                    guard let latValue = currentLocationDic[LocationManagerConstants.KEY_LATITUDE] else{
+                        return
+                    }
+                    self.service.nearByRestaurants(longitude: longValue,
+                                                   latitude: latValue)
+                        .subscribe(onNext: { [unowned self] requestResult in
+
+                            switch requestResult{
+                            case let .success(results):
+                                self.restaurantsProperty.value = results
+                            case let .error( error ):
+                                switch error{
+                                case .InvalidRequest:
+                                    self.errorStringProperty.value = "Invalid request parameters...!"
+                                case .OverQueryLimit:
+                                    self.errorStringProperty.value = "Max limit of queries has been reached...!"
+                                case .RequestDenied:
+                                    self.errorStringProperty.value = "Request has been denied...!"
+                                case .ServerSideError:
+                                    self.errorStringProperty.value = "Server side error...!"
+                                case let .error(withMessage: errorMessage):
+                                    self.errorStringProperty.value = "Received error: \(errorMessage)"
+                                }
+                            }
+                        }).disposed(by: disposeBag)
                 }
+            }).disposed(by: disposeBag)
+
+        locationMan.errorString
+            .subscribe(onNext: { errorMessage in
+                self.errorStringProperty.value = "Location tracking error...!"
             }).disposed(by: disposeBag)
     }
 }
