@@ -28,18 +28,43 @@
         <!--Item 1-->
         <scene sceneID="3wz-ca-tNn">
             <objects>
-                <viewController id="G38-At-LUN" sceneMemberID="viewController">
+                <viewController id="G38-At-LUN" customClass="RestaurantViewController" customModule="AYM_Assignment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B11-pj-kmu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1aX-oh-dOw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestaurantCell" id="Fgt-fu-Cbm">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fgt-fu-Cbm" id="sml-so-DyI">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1aX-oh-dOw" firstAttribute="trailing" secondItem="SQN-3t-Mb3" secondAttribute="trailing" id="KC7-JP-5O0"/>
+                            <constraint firstItem="1aX-oh-dOw" firstAttribute="top" secondItem="B11-pj-kmu" secondAttribute="top" id="fk2-9w-5Kz"/>
+                            <constraint firstItem="1aX-oh-dOw" firstAttribute="leading" secondItem="SQN-3t-Mb3" secondAttribute="leading" id="kZ3-G4-7aJ"/>
+                            <constraint firstItem="1aX-oh-dOw" firstAttribute="bottom" secondItem="SQN-3t-Mb3" secondAttribute="bottom" id="wSr-em-Qn6"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="SQN-3t-Mb3"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="KOk-rT-ZxW"/>
+                    <connections>
+                        <outlet property="tableView" destination="1aX-oh-dOw" id="Ge6-Hb-4eg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQ5-tO-Kuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="858" y="-86"/>
+            <point key="canvasLocation" x="856.79999999999995" y="-86.806596701649184"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="rJG-CT-ZGg">
