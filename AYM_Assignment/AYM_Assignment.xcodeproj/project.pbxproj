@@ -13,6 +13,8 @@
 		5A6A3EFB20C23D1100C9B029 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A6A3EFA20C23D1100C9B029 /* Assets.xcassets */; };
 		5A6A3EFE20C23D1100C9B029 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A6A3EFC20C23D1100C9B029 /* LaunchScreen.storyboard */; };
 		5A6A3F0920C23D1200C9B029 /* AYM_AssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6A3F0820C23D1200C9B029 /* AYM_AssignmentTests.swift */; };
+		5A71D97D20C267EB00C1A874 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71D97C20C267EB00C1A874 /* WeatherViewController.swift */; };
+		5A71D97F20C2680900C1A874 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71D97E20C2680900C1A874 /* WeatherViewModel.swift */; };
 		5AFD78C120C2435700CA350C /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD78C020C2435700CA350C /* RestaurantViewController.swift */; };
 		5AFD78C320C2437900CA350C /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD78C220C2437900CA350C /* RestaurantTableViewCell.swift */; };
 		5AFD78C520C2439C00CA350C /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD78C420C2439C00CA350C /* RestaurantViewModel.swift */; };
@@ -49,6 +51,8 @@
 		5A6A3F0420C23D1200C9B029 /* AYM_AssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AYM_AssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A6A3F0820C23D1200C9B029 /* AYM_AssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYM_AssignmentTests.swift; sourceTree = "<group>"; };
 		5A6A3F0A20C23D1200C9B029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A71D97C20C267EB00C1A874 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		5A71D97E20C2680900C1A874 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		5AFD78C020C2435700CA350C /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		5AFD78C220C2437900CA350C /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		5AFD78C420C2439C00CA350C /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		5A6A3F1320C23D3900C9B029 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5A71D97B20C267D800C1A874 /* Weather */,
 				5AFD78BF20C2431D00CA350C /* Restaurants */,
 				5A6A3EF720C23D1100C9B029 /* Main.storyboard */,
 				5A6A3EFC20C23D1100C9B029 /* LaunchScreen.storyboard */,
@@ -156,6 +161,15 @@
 				5AFD78D120C24A5C00CA350C /* Photo.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		5A71D97B20C267D800C1A874 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				5A71D97C20C267EB00C1A874 /* WeatherViewController.swift */,
+				5A71D97E20C2680900C1A874 /* WeatherViewModel.swift */,
+			);
+			path = Weather;
 			sourceTree = "<group>";
 		};
 		5AFD78BF20C2431D00CA350C /* Restaurants */ = {
@@ -442,7 +456,9 @@
 				5AFD78D920C257DB00CA350C /* LocationManagerType.swift in Sources */,
 				5AFD78CE20C2492E00CA350C /* RestaurantService.swift in Sources */,
 				5AFD78CC20C2492E00CA350C /* GooglePlacesAPIConstants.swift in Sources */,
+				5A71D97F20C2680900C1A874 /* WeatherViewModel.swift in Sources */,
 				5AFD78C320C2437900CA350C /* RestaurantTableViewCell.swift in Sources */,
+				5A71D97D20C267EB00C1A874 /* WeatherViewController.swift in Sources */,
 				5AFD78C120C2435700CA350C /* RestaurantViewController.swift in Sources */,
 				5AFD78D020C24A1800CA350C /* Restaurant.swift in Sources */,
 			);
