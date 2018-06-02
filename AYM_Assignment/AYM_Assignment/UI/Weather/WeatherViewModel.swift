@@ -55,6 +55,7 @@ WeatherViewModelOutput{
     // MARK: Input
     func refresh() {
         refreshFlag = true
+        locationMan.requestLocation()
     }
 
     // MARK: Output
@@ -83,6 +84,23 @@ WeatherViewModelOutput{
         return windProperty.asObservable()
     }
     var daysForcast: Observable<[Weather]>!
+
+    func createCellViewModel(for weatherObj: Weather) -> WeatherCellViewModel {
+        var iconURLString:String?
+        if let icon = weatherObj.weatherState?.first?.icon{
+            iconURLString = service.urlForIcon(withCode: icon)
+        }
+
+        //Setting day name field
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let date = Date(timeIntervalSince1970: TimeInterval(weatherObj.epochTime))
+
+        return WeatherCellViewModel(dayName: formatter.string(from: date),
+                                    iconURLString: iconURLString,
+                                    tempMax: String(format: "%.0f", weatherObj.temp?.tempMax ?? 0),
+                                    tempMin: String(format: "%.0f", weatherObj.temp?.tempMin ?? 0))
+    }
 
     // MARKL Private
     private let cityNameProperty = Variable<String>("")
@@ -122,12 +140,24 @@ WeatherViewModelOutput{
                                                latitude: latValue)
                         .subscribe(onNext: { weatherObj in
 
+                            //Setting day name field
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "EEEE"
+                            let date = Date()
+                            self.dayNameProperty.value = formatter.string(from: date)
+                            //Setting city name field
                             self.cityNameProperty.value = weatherObj.name ?? ""
+                            //Setting weather description field
                             self.weatherProperty.value = weatherObj.weatherState?.first?.description ?? ""
+                            //Setting temprature field
                             self.tempratureProperty.value = String(format: "%.0f", weatherObj.temp?.temp ?? 0)
+                            //Setting temprature icon
                             self.tempratureIconURLStringProperty.value = self.service.urlForIcon(withCode: weatherObj.weatherState?.first?.icon ?? "")
+                            //Setting precipitation field
                             self.precipitationProperty.value = "\(weatherObj.clouds?.percentage ?? 0)"
+                            //Setting humidity field
                             self.humidityProperty.value = "\(weatherObj.temp?.humidity ?? 0)"
+                            //Setting wind field
                             self.windProperty.value = "\(weatherObj.wind?.speed ?? 0)"
                         }).disposed(by: disposeBag)
 
@@ -137,3 +167,12 @@ WeatherViewModelOutput{
             }).disposed(by: disposeBag)
     }
 }
+
+
+struct WeatherCellViewModel{
+    let dayName:String?
+    let iconURLString:String?
+    let tempMax:String
+    let tempMin:String
+}
+

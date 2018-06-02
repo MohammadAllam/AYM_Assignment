@@ -52,7 +52,8 @@ struct Weather: Codable {
         }
     }
 
-    let name:String? = nil
+    let name:String?
+    let epochTime:Int
     let weatherState:[WeatherState]?
     let temp:Temprature?
     let wind:Wind?
@@ -60,6 +61,7 @@ struct Weather: Codable {
 
     enum CodingKeys: String, CodingKey {
         case name
+        case epochTime = "dt"
         case weatherState = "weather"
         case temp = "main"
         case wind

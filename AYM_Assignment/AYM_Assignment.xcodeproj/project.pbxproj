@@ -20,6 +20,7 @@
 		5A71D98620C26A2D00C1A874 /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71D98520C26A2D00C1A874 /* WeatherAPI.swift */; };
 		5A71D98820C26A3800C1A874 /* WeatherAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71D98720C26A3800C1A874 /* WeatherAPIConstants.swift */; };
 		5A71D98A20C26AD900C1A874 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71D98920C26AD900C1A874 /* Weather.swift */; };
+		5A71D98C20C2768E00C1A874 /* WeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71D98B20C2768E00C1A874 /* WeatherCollectionViewCell.swift */; };
 		5AFD78C120C2435700CA350C /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD78C020C2435700CA350C /* RestaurantViewController.swift */; };
 		5AFD78C320C2437900CA350C /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD78C220C2437900CA350C /* RestaurantTableViewCell.swift */; };
 		5AFD78C520C2439C00CA350C /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD78C420C2439C00CA350C /* RestaurantViewModel.swift */; };
@@ -63,6 +64,7 @@
 		5A71D98520C26A2D00C1A874 /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		5A71D98720C26A3800C1A874 /* WeatherAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIConstants.swift; sourceTree = "<group>"; };
 		5A71D98920C26AD900C1A874 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		5A71D98B20C2768E00C1A874 /* WeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		5AFD78C020C2435700CA350C /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		5AFD78C220C2437900CA350C /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		5AFD78C420C2439C00CA350C /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5A71D97C20C267EB00C1A874 /* WeatherViewController.swift */,
+				5A71D98B20C2768E00C1A874 /* WeatherCollectionViewCell.swift */,
 				5A71D97E20C2680900C1A874 /* WeatherViewModel.swift */,
 			);
 			path = Weather;
@@ -475,6 +478,7 @@
 				5AFD78CB20C2492E00CA350C /* RestaurantServiceType.swift in Sources */,
 				5A71D98A20C26AD900C1A874 /* Weather.swift in Sources */,
 				5A71D98820C26A3800C1A874 /* WeatherAPIConstants.swift in Sources */,
+				5A71D98C20C2768E00C1A874 /* WeatherCollectionViewCell.swift in Sources */,
 				5AFD78D520C2561600CA350C /* LocationManager.swift in Sources */,
 				5AFD78C520C2439C00CA350C /* RestaurantViewModel.swift in Sources */,
 				5A71D98220C26A1700C1A874 /* WeatherServiceType.swift in Sources */,
