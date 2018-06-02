@@ -39,7 +39,7 @@ protocol WeatherViewModelOutput{
     var wind: Observable<String>! { get }
 
     /// Emits an weather forcasts
-    var daysForcast: Observable<[String]>! { get }
+    var daysForcast: Observable<[Weather]>! { get }
 }
 
 protocol WeatherViewModelType {
@@ -82,7 +82,7 @@ WeatherViewModelOutput{
     var wind: Observable<String>!{
         return windProperty.asObservable()
     }
-    var daysForcast: Observable<[String]>!
+    var daysForcast: Observable<[Weather]>!
 
     // MARKL Private
     private let cityNameProperty = Variable<String>("")
@@ -97,9 +97,43 @@ WeatherViewModelOutput{
 
     // MARK: Private
     private var refreshFlag = true
+    private let service: WeatherServiceType
+    private let locationMan: LocationManagerType
 
     // MARK: Init
-    init(disposeBag:DisposeBag) {
+    init(inputService: WeatherServiceType = WeatherService(),
+         inputLocManager: LocationManagerType = LocationManager.sharedInstance,
+         disposeBag:DisposeBag) {
 
+        self.service = inputService
+        self.locationMan = inputLocManager
+
+        locationMan.currentLocation
+            .subscribe(onNext: { [unowned self] currentLocationDic in
+                if self.refreshFlag{
+                    self.refreshFlag = false
+                    guard let longValue = currentLocationDic[LocationManagerConstants.KEY_LONITUDE] else{
+                        return
+                    }
+                    guard let latValue = currentLocationDic[LocationManagerConstants.KEY_LATITUDE] else{
+                        return
+                    }
+                    self.service.todaysWeather(longitude: longValue,
+                                               latitude: latValue)
+                        .subscribe(onNext: { weatherObj in
+
+                            self.cityNameProperty.value = weatherObj.name ?? ""
+                            self.weatherProperty.value = weatherObj.weatherState?.first?.description ?? ""
+                            self.tempratureProperty.value = String(format: "%.0f", weatherObj.temp?.temp ?? 0)
+                            self.tempratureIconURLStringProperty.value = self.service.urlForIcon(withCode: weatherObj.weatherState?.first?.icon ?? "")
+                            self.precipitationProperty.value = "\(weatherObj.clouds?.percentage ?? 0)"
+                            self.humidityProperty.value = "\(weatherObj.temp?.humidity ?? 0)"
+                            self.windProperty.value = "\(weatherObj.wind?.speed ?? 0)"
+                        }).disposed(by: disposeBag)
+
+                    self.daysForcast = self.service.fiveDaysForcast(longitude: longValue,
+                                                                    latitude: latValue)
+                }
+            }).disposed(by: disposeBag)
     }
 }
