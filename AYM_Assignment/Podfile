@@ -11,6 +11,10 @@ target 'AYM_Assignment' do
   pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
 
+  # UI
+  pod 'Cosmos'#, '~> 16.0'
+  pod 'AlamofireImage'
+
   target 'AYM_AssignmentTests' do
     inherit! :search_paths
     # Pods for testing

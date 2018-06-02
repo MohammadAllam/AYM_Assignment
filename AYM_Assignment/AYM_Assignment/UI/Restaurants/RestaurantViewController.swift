@@ -38,8 +38,8 @@ class RestaurantViewController: UIViewController {
         outputs?.restaurants
             .debug("Binding tableview")
             .bind(to: tableView.rx.items(cellIdentifier: "RestaurantCell")) {
-                (index, restaurant: Restaurant, cell:UITableViewCell) in
-                cell.textLabel?.text = restaurant.name
+                [unowned self](index, restaurant: Restaurant, cell:RestaurantTableViewCell) in
+                cell.configureCell(with: self.viewModel!.createCellViewModel(for: restaurant))
             }
             .disposed(by: disposeBag)
 

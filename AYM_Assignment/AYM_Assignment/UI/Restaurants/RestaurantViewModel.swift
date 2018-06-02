@@ -21,6 +21,9 @@ protocol RestaurantViewModelOutput{
 
     /// Emits an error string once an exception happens
     var errorString: Observable<String>! { get }
+
+    /// Return cell view model object
+    func createCellViewModel(for restaurant: Restaurant) -> RestaurantCellViewModel
 }
 
 protocol RestaurantViewModelType {
@@ -48,6 +51,18 @@ RestaurantViewModelOutput{
     }
     var errorString: Observable<String>!{
         return self.errorStringProperty.asObservable()
+    }
+
+    func createCellViewModel(for restaurant: Restaurant) -> RestaurantCellViewModel {
+        var imageURLString:String?
+        if let firstPhotoRef = restaurant.photos?.first?.photo_reference{
+            imageURLString = service.urlForPhoto(withReference: firstPhotoRef)
+        }
+
+        return RestaurantCellViewModel(title: restaurant.name,
+                                       thumbnailURLString: imageURLString,
+                                       reviewAvgString: String(restaurant.rating ?? 0.0),
+                                       reviewAvg: restaurant.rating ?? 0.0)
     }
 
     // MARK: Private
@@ -105,4 +120,11 @@ RestaurantViewModelOutput{
                 self.errorStringProperty.value = "Location tracking error...!"
             }).disposed(by: disposeBag)
     }
+}
+
+struct RestaurantCellViewModel{
+    let title:String?
+    let thumbnailURLString:String?
+    let reviewAvgString:String
+    let reviewAvg:Double
 }
