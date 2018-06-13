@@ -41,7 +41,7 @@ RestaurantViewModelOutput{
 
     // MARK: Input
     func refresh() {
-        refreshFlag = true
+        refreshProperty.onNext(true)
         locationMan.requestLocation()
     }
 
@@ -68,7 +68,7 @@ RestaurantViewModelOutput{
     // MARK: Private
     private let service: RestaurantServiceType
     private let locationMan: LocationManagerType
-    private var refreshFlag = true
+    private let refreshProperty = BehaviorSubject<Bool>(value:true)
     private let restaurantsProperty = Variable<[Restaurant]>([])
     private let errorStringProperty = Variable<String>("")
 
@@ -80,40 +80,38 @@ RestaurantViewModelOutput{
         self.service = inputService
         self.locationMan = inputLocManager
 
-        locationMan.currentLocation
-            .subscribe(onNext: { [unowned self] currentLocationDic in
-                if self.refreshFlag{
-                    self.refreshFlag = false
-                    guard let longValue = currentLocationDic[LocationManagerConstants.KEY_LONITUDE] else{
-                        return
-                    }
-                    guard let latValue = currentLocationDic[LocationManagerConstants.KEY_LATITUDE] else{
-                        return
-                    }
-                    self.service.nearByRestaurants(longitude: longValue,
-                                                   latitude: latValue)
-                        .subscribe(onNext: { [unowned self] requestResult in
-
-                            switch requestResult{
-                            case let .success(results):
-                                self.restaurantsProperty.value = results
-                            case let .error( error ):
-                                switch error{
-                                case .InvalidRequest:
-                                    self.errorStringProperty.value = "Invalid request parameters...!"
-                                case .OverQueryLimit:
-                                    self.errorStringProperty.value = "Max limit of queries has been reached...!"
-                                case .RequestDenied:
-                                    self.errorStringProperty.value = "Request has been denied...!"
-                                case .ServerSideError:
-                                    self.errorStringProperty.value = "Server side error...!"
-                                case let .error(withMessage: errorMessage):
-                                    self.errorStringProperty.value = "Received error: \(errorMessage)"
-                                }
+        Observable
+            .combineLatest(locationMan.currentLocation,refreshProperty)
+            .filter({ (_,refreshFlag) -> Bool in
+                return refreshFlag
+            })
+            .subscribe(onNext: { (currentLocationDic,_) in
+                guard let longValue = currentLocationDic[LocationManagerConstants.KEY_LONITUDE],
+                    let latValue = currentLocationDic[LocationManagerConstants.KEY_LATITUDE] else { return }
+                self.service.nearByRestaurants(longitude: longValue,
+                                               latitude: latValue)
+                    .subscribe(onNext: { [unowned self] requestResult in
+                        self.refreshProperty.onNext(false)
+                        switch requestResult{
+                        case let .success(results):
+                            self.restaurantsProperty.value = results
+                        case let .error( error ):
+                            switch error{
+                            case .InvalidRequest:
+                                self.errorStringProperty.value = "Invalid request parameters...!"
+                            case .OverQueryLimit:
+                                self.errorStringProperty.value = "Max limit of queries has been reached...!"
+                            case .RequestDenied:
+                                self.errorStringProperty.value = "Request has been denied...!"
+                            case .ServerSideError:
+                                self.errorStringProperty.value = "Server side error...!"
+                            case let .error(withMessage: errorMessage):
+                                self.errorStringProperty.value = "Received error: \(errorMessage)"
                             }
-                        }).disposed(by: disposeBag)
-                }
-            }).disposed(by: disposeBag)
+                        }
+                    }).disposed(by: disposeBag)
+            })
+        .disposed(by: disposeBag)
 
         locationMan.errorString
             .subscribe(onNext: { errorMessage in

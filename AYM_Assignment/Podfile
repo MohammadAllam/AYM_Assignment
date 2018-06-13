@@ -15,6 +15,13 @@ target 'AYM_Assignment' do
   pod 'Cosmos'#, '~> 16.0'
   pod 'AlamofireImage'
 
+
+dewa
+sora mn el gwaz
+rqm 3nwan el malik
+el morasalat
+sort mbl3' el t2meen
+
   target 'AYM_AssignmentTests' do
     inherit! :search_paths
     # Pods for testing
