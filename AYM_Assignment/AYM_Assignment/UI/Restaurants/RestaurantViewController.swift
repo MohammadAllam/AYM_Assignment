@@ -60,7 +60,7 @@ class RestaurantViewController: UIViewController {
     func configureUI(){
 
         // Configuring dynamic table view cells height
-        tableView.estimatedRowHeight = 40
+        tableView.estimatedRowHeight = 132
         tableView.rowHeight = UITableViewAutomaticDimension
 
         // Start loading items
