@@ -51,9 +51,11 @@ class RestaurantTableViewCell: UITableViewCell {
         // Configuring the starts rating view
         view_rating.rating = cellViewModel.reviewAvg
         // Configuring the thumbnail
-        if let thumbnailURL = URL(string:cellViewModel.thumbnailURLString!){
-            imageVIew_thumbnail.af_setImage(withURL: thumbnailURL,
+        if let thumbnailURLString = cellViewModel.thumbnailURLString{
+            imageVIew_thumbnail.af_setImage(withURL: URL(string:thumbnailURLString)!,
                                             placeholderImage:Image(named: "DefaultThumbnail"))
+        }else {
+            imageVIew_thumbnail.image = Image(named: "DefaultThumbnail")
         }
     }
 }
