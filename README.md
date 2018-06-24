@@ -18,7 +18,6 @@ This application is following the MVVM architecture and uses reactive techniques
     - [Cosmos](https://github.com/evgenyneu/Cosmos) : Rating view control
 
 ### To do 
-  - Fixing the four warnings currently presented in the storyboard.
   - Filtering the weather forecast to display only one forecast per day instead of the hourly forcast currently presented.
   - Displaying a more user friendly error messages.
   - Adding refresh functionality.
