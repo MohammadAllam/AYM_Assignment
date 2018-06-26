@@ -14,29 +14,8 @@ protocol WeatherViewModelInput{
 }
 
 protocol WeatherViewModelOutput{
-    /// Emits a string of city name
-    var cityName: Observable<String>! { get }
-
-    /// Emits a string of day name
-    var dayName: Observable<String>! { get }
-
-    /// Emits a string of weather description
-    var weather: Observable<String>! { get }
-
-    /// Emits a string of weather temprature
-    var temprature: Observable<String>! { get }
-
-    /// Emits a string of weather icon URL
-    var tempratureIconURLString: Observable<String>! { get }
-
-    /// Emits a string of precipitation
-    var precipitation: Observable<String>! { get }
-
-    /// Emits a string of humidity
-    var humidity: Observable<String>! { get }
-
-    /// Emits a string of wind
-    var wind: Observable<String>! { get }
+    /// Emits a weather obj for all the displayed fields
+    var generalWeather: Observable<DisplayedWeatherDataModel>! { get }
 
     /// Emits an weather forcasts
     var daysForcast: Observable<[Weather]>! { get }
@@ -59,29 +38,8 @@ WeatherViewModelOutput{
     }
 
     // MARK: Output
-    var cityName: Observable<String>!{
-        return cityNameProperty.asObservable()
-    }
-    var dayName: Observable<String>!{
-        return dayNameProperty.asObservable()
-    }
-    var weather: Observable<String>!{
-        return weatherProperty.asObservable()
-    }
-    var temprature: Observable<String>!{
-        return tempratureProperty.asObservable()
-    }
-    var tempratureIconURLString: Observable<String>!{
-        return tempratureIconURLStringProperty.asObservable()
-    }
-    var precipitation: Observable<String>!{
-        return precipitationProperty.asObservable()
-    }
-    var humidity: Observable<String>!{
-        return humidityProperty.asObservable()
-    }
-    var wind: Observable<String>!{
-        return windProperty.asObservable()
+    var generalWeather: Observable<DisplayedWeatherDataModel>!{
+        return generalWeatherProperty.asObservable()
     }
     var daysForcast: Observable<[Weather]>!
 
@@ -103,14 +61,7 @@ WeatherViewModelOutput{
     }
 
     // MARKL Private
-    private let cityNameProperty = Variable<String>("")
-    private let dayNameProperty = Variable<String>("")
-    private let weatherProperty = Variable<String>("")
-    private let tempratureProperty = Variable<String>("")
-    private let tempratureIconURLStringProperty = Variable<String>("")
-    private let precipitationProperty = Variable<String>("")
-    private let humidityProperty = Variable<String>("")
-    private let windProperty = Variable<String>("")
+    private let generalWeatherProperty = BehaviorSubject<DisplayedWeatherDataModel>(value: DisplayedWeatherDataModel())
     private let daysForcastProperty = Variable<String>("")
 
     // MARK: Private
@@ -144,21 +95,22 @@ WeatherViewModelOutput{
                             let formatter = DateFormatter()
                             formatter.dateFormat = "EEEE"
                             let date = Date()
-                            self.dayNameProperty.value = formatter.string(from: date)
-                            //Setting city name field
-                            self.cityNameProperty.value = weatherObj.name ?? ""
+                            let dayNamePropertyValue = formatter.string(from: date)
                             //Setting weather description field
-                            self.weatherProperty.value = weatherObj.weatherState?.first?.description ?? ""
+                            let weatherPropertyValue = weatherObj.weatherState?.first?.description ?? ""
                             //Setting temprature field
-                            self.tempratureProperty.value = String(format: "%.0f", weatherObj.temp?.temp ?? 0)
+                            let tempraturePropertyValue = String(format: "%.0f", weatherObj.temp?.temp ?? 0)
                             //Setting temprature icon
-                            self.tempratureIconURLStringProperty.value = self.service.urlForIcon(withCode: weatherObj.weatherState?.first?.icon ?? "")
-                            //Setting precipitation field
-                            self.precipitationProperty.value = "\(weatherObj.clouds?.percentage ?? 0)"
-                            //Setting humidity field
-                            self.humidityProperty.value = "\(weatherObj.temp?.humidity ?? 0)"
-                            //Setting wind field
-                            self.windProperty.value = "\(weatherObj.wind?.speed ?? 0)"
+                            let tempratureIconURLStringPropertyValue = self.service.urlForIcon(withCode: weatherObj.weatherState?.first?.icon ?? "")
+
+                            self.generalWeatherProperty.onNext(DisplayedWeatherDataModel(dayName: dayNamePropertyValue,
+                                                                                         cityName: weatherObj.name ?? "",
+                                                                                         weatherDescription: weatherPropertyValue,
+                                                                                         temp: tempraturePropertyValue,
+                                                                                         tempIcon: tempratureIconURLStringPropertyValue,
+                                                                                         precipitation: "\(weatherObj.clouds?.percentage ?? 0)",
+                                humidity: "\(weatherObj.temp?.humidity ?? 0)",
+                                wind: "\(weatherObj.wind?.speed ?? 0)"))
                         }).disposed(by: disposeBag)
 
                     self.daysForcast = self.service.fiveDaysForcast(longitude: longValue,
@@ -168,6 +120,35 @@ WeatherViewModelOutput{
     }
 }
 
+struct DisplayedWeatherDataModel{
+    var dayName:String
+    var cityName:String
+    var weatherDescription:String
+    var temp:String
+    var tempIcon:String
+    var precipitation:String
+    var humidity:String
+    var wind:String
+
+    init(dayName:String = "",
+         cityName:String = "",
+         weatherDescription:String = "",
+         temp:String = "",
+         tempIcon:String = "",
+         precipitation:String = "",
+         humidity:String = "",
+         wind:String = "") {
+
+        self.dayName = dayName
+        self.cityName = cityName
+        self.weatherDescription = weatherDescription
+        self.temp = temp
+        self.tempIcon = tempIcon
+        self.precipitation = precipitation
+        self.humidity = humidity
+        self.wind = wind
+    }
+}
 
 struct WeatherCellViewModel{
     let dayName:String?
