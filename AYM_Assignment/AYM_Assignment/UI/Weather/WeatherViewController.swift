@@ -43,23 +43,28 @@ class WeatherViewController: UIViewController {
 
         let outputs = viewModel?.outputs
 
-        outputs?.cityName
+        outputs?.generalWeather
+            .map({ $0.cityName })
             .bind(to: label_cityName.rx.text)
             .disposed(by: disposeBag)
 
-        outputs?.dayName
+        outputs?.generalWeather
+            .map({ $0.dayName })
             .bind(to: label_dayName.rx.text)
             .disposed(by: disposeBag)
 
-        outputs?.weather
+        outputs?.generalWeather
+            .map({ $0.weatherDescription })
             .bind(to: label_weatherDesc.rx.text)
             .disposed(by: disposeBag)
 
-        outputs?.temprature
+        outputs?.generalWeather
+            .map({ $0.temp })
             .bind(to: label_temp.rx.text)
             .disposed(by: disposeBag)
 
-        outputs?.tempratureIconURLString
+        outputs?.generalWeather
+            .map({ $0.tempIcon })
             .subscribe(onNext: { [unowned self] iconURLString in
                 guard let iconURL = URL(string:iconURLString) else{
                     return
@@ -68,15 +73,18 @@ class WeatherViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        outputs?.precipitation
+        outputs?.generalWeather
+            .map({ $0.precipitation })
             .bind(to: label_precipitation.rx.text)
             .disposed(by: disposeBag)
 
-        outputs?.humidity
+        outputs?.generalWeather
+            .map({ $0.humidity })
             .bind(to: label_humidity.rx.text)
             .disposed(by: disposeBag)
 
-        outputs?.wind
+        outputs?.generalWeather
+            .map({ $0.wind })
             .bind(to: label_wind.rx.text)
             .disposed(by: disposeBag)
 
